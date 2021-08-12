@@ -23,11 +23,20 @@ def step_impl(context):
 def step_impl(context, name):
 	context.name = name
 
+@given('the user enters the rate: {rate}')
+def step_impl(context, rate):
+	context.rate = rate
+
 
 @when("the user search games by {criteria}")
 def step_impl(context, criteria):
 	if(criteria == 'name'):
 		result, message = get_game_name(context.games, context.name)
+		print(result)
+		context.result = result
+		context.message = message
+	elif(criteria == 'rate'):
+		result, message, error = get_game_rating(context.games,context.rate)
 		print(result)
 		context.result = result
 		context.message = message
